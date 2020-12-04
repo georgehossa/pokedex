@@ -40,3 +40,12 @@ export const Input = styled.input`
   padding: .5rem;
   font-weight: bold;
 `
+
+export const CardContainer = styled.div`
+  display: block;
+  padding: 1rem 0;
+  font-weight: bold;
+  text-align: center;
+`
+
+
