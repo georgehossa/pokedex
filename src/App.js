@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container } from './App.styles';
+import { Container, Header, SearchBar, Label, Input, Button } from './App.styles';
 import axios from 'axios';
 import Logo from './assets/logo.png';
 
@@ -27,10 +27,14 @@ const App = () => {
   }
   return (
     <Container>
-      <img src={Logo} alt="Pokedex"></img>
-      <label>Search pokemon</label>
-      <input type="text" onChange={(e) => setInputPokemon(e.target.value)}></input>
-      <button type="button" onClick={handleSubmit}>Search</button>
+      <Header>
+        <img src={Logo} alt="Pokedex"></img>
+      </Header>
+      <SearchBar>
+        <Label>Search a Pokemon</Label>
+        <Input type="text" onChange={(e) => setInputPokemon(e.target.value)}></Input>
+        <Button type="button" onClick={handleSubmit}>Search</Button>
+      </SearchBar>
       {
         Object.keys(resultPokemon).length !== 0 ? <PokemonCard id={resultPokemon.id} name={resultPokemon.name} type={resultPokemon.type} image={resultPokemon.image}/> : 'Catch them all'
       }
