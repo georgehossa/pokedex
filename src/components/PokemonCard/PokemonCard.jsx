@@ -1,14 +1,16 @@
 import React from 'react';
-import { Container, InfoWrapper } from './PokemonCard.styles';
+import { Container, InfoWrapper, ImageContainer, Id, Name, Type } from './PokemonCard.styles';
 
 const PokemonCard = ({id, name, type, image}) => (
   <Container className="PokemonCardWrapper">
+    <ImageContainer>
+      <img src={image} alt={name}></img>
+    </ImageContainer>
     <InfoWrapper>
-      <h2>{name}</h2>
-      <span>#{id}</span>
-      <span>{type}</span>
+      <Name>{name}</Name>
+      <Id>#{id}</Id>
+      <Type>{type}</Type>
     </InfoWrapper>
-    <img src={image} alt={name}></img>
   </Container>
 );
 

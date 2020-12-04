@@ -6,5 +6,13 @@ export const theme = {
   font: {
     family: '"Roboto", sans-serif',
     size: 16,
+    weight: {
+      light: 100,
+      regular: 400,
+      bold: 700,
+    }
+  },
+  layout: {
+    borderRadius: 16,
   }
 }
