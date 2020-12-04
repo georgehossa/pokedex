@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './assets/styles/theme';
+import { GlobalStyles } from './assets/styles/globalStyles';
 import { Container, Header, SearchBar, Label, Input, Button, CardContainer } from './App.styles';
 import axios from 'axios';
 import Logo from './assets/logo.png';
@@ -26,21 +29,24 @@ const App = () => {
     })
   }
   return (
-    <Container>
-      <Header>
-        <img src={Logo} alt="Pokedex"></img>
-      </Header>
-      <SearchBar>
-        <Label>Search a Pokemon</Label>
-        <Input type="text" onChange={(e) => setInputPokemon(e.target.value)}></Input>
-        <Button type="button" onClick={handleSubmit}>Search</Button>
-      </SearchBar>
-      <CardContainer>
-        {
-          Object.keys(resultPokemon).length !== 0 ? <PokemonCard id={resultPokemon.id} name={resultPokemon.name} type={resultPokemon.type} image={resultPokemon.image}/> : 'Catch them all'
-        }
-      </CardContainer>
-    </Container>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles/>
+      <Container>
+        <Header>
+          <img src={Logo} alt="Pokedex"></img>
+        </Header>
+        <SearchBar>
+          <Label>Search a Pokemon</Label>
+          <Input type="text" onChange={(e) => setInputPokemon(e.target.value)}></Input>
+          <Button type="button" onClick={handleSubmit}>Search</Button>
+        </SearchBar>
+        <CardContainer>
+          {
+            Object.keys(resultPokemon).length !== 0 ? <PokemonCard id={resultPokemon.id} name={resultPokemon.name} type={resultPokemon.type} image={resultPokemon.image}/> : 'Catch them all'
+          }
+        </CardContainer>
+      </Container>
+    </ThemeProvider>
   );
 }
 
