@@ -13,7 +13,7 @@ const App = () => {
   const [resultPokemon, setResultPokemon] = useState({});
   const URL = 'https://pokeapi.co/api/v2/pokemon/';
   const handleSubmit = () => {
-    axios.get(`${URL}${inputPokemon}`)
+    axios.get(`${URL}${inputPokemon.toLowerCase()}`)
       .then(res => {
         const data = res.data;
         setResultPokemon({
