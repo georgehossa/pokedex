@@ -1,18 +1,8 @@
 import styled from 'styled-components';
 
-export const Container = styled.main`
-  display: block;
-`;
-
-export const Header = styled.header`
-  display: block;
-  background-color: red;
+export const Container = styled.div`
   text-align: center;
-  margin-bottom: 2rem;
-`
-
-export const SearchBar = styled.div`
-  text-align: center;
+  width: 100%;
 `
 
 export const Label = styled.label`
@@ -26,7 +16,7 @@ export const Button = styled.button`
   padding: 1rem 3rem;
   margin: 0 auto;
   font-weight: bold;
-  background-color: red;
+  background-color: ${props => props.theme.colors.primary};
   border: none;
   border-radius: 20px;
   box-shadow: none;
@@ -40,12 +30,3 @@ export const Input = styled.input`
   padding: .5rem;
   font-weight: bold;
 `
-
-export const CardContainer = styled.div`
-  display: block;
-  padding: 1rem 0;
-  font-weight: bold;
-  text-align: center;
-`
-
-

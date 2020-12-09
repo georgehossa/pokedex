@@ -1,18 +1,25 @@
-import React, { useState } from 'react';
+import React, { useState} from 'react';
+//import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
-import { theme } from './assets/styles/theme';
-import { GlobalStyles } from './assets/styles/globalStyles';
-import { Container, Header, SearchBar, Label, Input, Button, CardContainer } from './App.styles';
+import { theme } from '../../assets/styles/theme';
+import { GlobalStyles } from '../../assets/styles/globalStyles';
+import { Container, CardContainer } from './Home.styles';
 import axios from 'axios';
-import Logo from './assets/logo.png';
 
-import PokemonCard from './components/PokemonCard';
+import PokemonCard from '../../components/PokemonCard';
+import Header from '../../components/Header';
+import SearchBar from '../../components/SearchBar';
 
-const App = () => {
+const Home = () => {
   const [inputPokemon, setInputPokemon] = useState('');
   const [resultPokemon, setResultPokemon] = useState({});
   const URL = 'https://pokeapi.co/api/v2/pokemon/';
-  const handleSubmit = () => {
+
+  const handleChange = (e) => {
+      setInputPokemon(e.target.value);
+  }
+
+  const handleClick = () => {
     axios.get(`${URL}${inputPokemon.toLowerCase()}`)
       .then(res => {
         const data = res.data;
@@ -28,18 +35,13 @@ const App = () => {
       error.response.status === 404 ? console.log('intenta de nuevo') : console.log('Error:', error.message)
     })
   }
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles/>
       <Container>
-        <Header>
-          <img src={Logo} alt="Pokedex"></img>
-        </Header>
-        <SearchBar>
-          <Label>Search a Pokemon</Label>
-          <Input type="text" onChange={(e) => setInputPokemon(e.target.value)}></Input>
-          <Button type="button" onClick={handleSubmit}>Search</Button>
-        </SearchBar>
+        <Header/>
+        <SearchBar onChange={handleChange} onClick={handleClick} />
         <CardContainer>
           {
             Object.keys(resultPokemon).length !== 0 ? <PokemonCard id={resultPokemon.id} name={resultPokemon.name} type={resultPokemon.type} image={resultPokemon.image}/> : 'Catch them all'
@@ -48,6 +50,15 @@ const App = () => {
       </Container>
     </ThemeProvider>
   );
-}
+};
 
-export default App;
+
+// Home.propTypes = {
+//   // bla: PropTypes.string,
+// };
+
+// Home.defaultProps = {
+//   // bla: 'test',
+// };
+
+export default Home;
