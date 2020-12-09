@@ -1,13 +1,8 @@
 import React, { useState} from 'react';
 //import PropTypes from 'prop-types';
-import { ThemeProvider } from 'styled-components';
-import { theme } from '../../assets/styles/theme';
-import { GlobalStyles } from '../../assets/styles/globalStyles';
 import { Container, CardContainer } from './Home.styles';
 import axios from 'axios';
-
 import PokemonCard from '../../components/PokemonCard';
-import Header from '../../components/Header';
 import SearchBar from '../../components/SearchBar';
 
 const Home = () => {
@@ -37,18 +32,14 @@ const Home = () => {
   }
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles/>
       <Container>
-        <Header/>
         <SearchBar onChange={handleChange} onClick={handleClick} />
         <CardContainer>
           {
-            Object.keys(resultPokemon).length !== 0 ? <PokemonCard id={resultPokemon.id} name={resultPokemon.name} type={resultPokemon.type} image={resultPokemon.image}/> : 'Catch them all'
+            Object.keys(resultPokemon).length !== 0 ? <PokemonCard id={resultPokemon.id} name={resultPokemon.name} type={resultPokemon.type} image={resultPokemon.image}/> : null
           }
         </CardContainer>
       </Container>
-    </ThemeProvider>
   );
 };
 
