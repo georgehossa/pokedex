@@ -4,12 +4,12 @@ import styled from 'styled-components';
 
 export const Container = styled.header`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
+  width: 100%;
   background-color: ${props => props.theme.colors.primary};
   text-align: center;
-  margin-bottom: 2rem;
-  padding: .4rem 1rem;
+  padding: 1rem;
 `;
 
 export const FavLink = styled(Link)`
