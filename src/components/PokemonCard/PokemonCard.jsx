@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, InfoWrapper, ImageContainer, Id, Name, Type } from './PokemonCard.styles';
+import { Container, InfoWrapper, ImageContainer, Id, Name, Type, LikeIcon } from './PokemonCard.styles';
 
 const PokemonCard = ({id, name, type, image}) => (
   <Container>
@@ -11,6 +11,7 @@ const PokemonCard = ({id, name, type, image}) => (
       <Name>{name}</Name>
       <Id>#{id}</Id>
       <Type>{type}</Type>
+      <LikeIcon/>
     </InfoWrapper>
   </Container>
 );

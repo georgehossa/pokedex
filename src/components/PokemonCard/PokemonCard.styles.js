@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { MdFavorite } from 'react-icons/md';
 
 export const Container = styled.div`
   position: relative;
@@ -66,6 +67,14 @@ export const Type = styled.span`
   font-weight: ${props => props.theme.font.weight.regular};
   text-transform: capitalize;
   opacity: .6;
+`
+
+export const LikeIcon = styled(MdFavorite)`
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
 `
 
 
