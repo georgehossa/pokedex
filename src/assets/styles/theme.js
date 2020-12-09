@@ -13,6 +13,6 @@ export const theme = {
     }
   },
   layout: {
-    borderRadius: 16,
+    borderRadius: 6,
   }
 }
