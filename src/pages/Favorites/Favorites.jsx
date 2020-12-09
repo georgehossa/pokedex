@@ -1,11 +1,12 @@
 import React from 'react';
-import { MdKeyboardBackspace } from 'react-icons/md';
-import { Container, BackButton } from './Favorites.styles';
+import { Container } from './Favorites.styles';
 //import PropTypes from 'prop-types';
 
 const Favorites = () => (
   <Container>
-    <BackButton to="/"> <MdKeyboardBackspace/> Back</BackButton>
+    <h2>
+    Here are you favorites pokemons
+    </h2>
   </Container>
 );
 
