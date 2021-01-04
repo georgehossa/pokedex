@@ -25,6 +25,7 @@ export const ImageContainer = styled.div`
     z-index: 2;
     display: block;
     max-width: 100%;
+    max-height: 100%;
   }
   &::after {
     position: absolute;
