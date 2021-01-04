@@ -1,21 +1,24 @@
 import React from 'react';
+import { connect } from 'react-redux'
 import { Container } from './Favorites.styles';
-//import PropTypes from 'prop-types';
+import PokemonCard from '../../components/PokemonCard'
+import PropTypes from 'prop-types';
 
-const Favorites = () => (
+const Favorites = ({ myFavorites }) => (
   <Container>
-    <h2>
-    Here are you favorites pokemons
-    </h2>
+    { myFavorites.map(item => <PokemonCard key={item.id} {...item}/>)}
   </Container>
 );
 
-// Favorites.propTypes = {
-//   // bla: PropTypes.string,
-// };
+Favorites.propTypes = {
+  myFavorites: PropTypes.array,
+};
 
-// Favorites.defaultProps = {
-//   // bla: 'test',
-// };
 
-export default Favorites;
+const mapStateToProps = (state) => {
+  return {
+    myFavorites: state.myFavorites,
+  };
+}
+
+export default connect(mapStateToProps, null)(Favorites);
