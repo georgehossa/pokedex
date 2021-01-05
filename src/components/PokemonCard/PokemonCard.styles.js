@@ -5,6 +5,7 @@ export const Container = styled.div`
   position: relative;
   display: block;
   width: 80vw;
+  max-width: 300px;
   margin: 0 auto;
   padding: 2rem;
   border-radius: ${props => props.theme.layout.borderRadius}px;
