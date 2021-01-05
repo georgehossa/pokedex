@@ -1,11 +1,12 @@
 import React, { useState} from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import { Container, CardContainer } from './Home.styles';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import PokemonCard from '../../components/PokemonCard';
 import SearchBar from '../../components/SearchBar';
 
-const Home = () => {
+const Home = ({ myFavorites }) => {
   const [inputPokemon, setInputPokemon] = useState('');
   const [resultPokemon, setResultPokemon] = useState({});
   const URL = 'https://pokeapi.co/api/v2/pokemon/';
@@ -31,12 +32,21 @@ const Home = () => {
     })
   }
 
+  const checkFavorite = (arr, query) => {
+    const result = arr.find(item => item.id === query);
+    if (result && result.id === query) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   return (
       <Container>
         <SearchBar onChange={handleChange} onClick={handleClick} />
         <CardContainer>
           {
-            Object.keys(resultPokemon).length !== 0 ? <PokemonCard id={resultPokemon.id} name={resultPokemon.name} type={resultPokemon.type} image={resultPokemon.image}/> : null
+            Object.keys(resultPokemon).length !== 0 ? <PokemonCard id={resultPokemon.id} name={resultPokemon.name} type={resultPokemon.type} image={resultPokemon.image} isFavorite={checkFavorite(myFavorites, resultPokemon.id)}/> : null
           }
         </CardContainer>
       </Container>
@@ -44,12 +54,14 @@ const Home = () => {
 };
 
 
-// Home.propTypes = {
-//   // bla: PropTypes.string,
-// };
+Home.propTypes = {
+  myFavorites: PropTypes.array,
+};
 
-// Home.defaultProps = {
-//   // bla: 'test',
-// };
+const mapStateToProps = (state) => {
+  return {
+    myFavorites: state.myFavorites,
+  };
+}
 
-export default Home;
+export default connect(mapStateToProps, null)(Home);
