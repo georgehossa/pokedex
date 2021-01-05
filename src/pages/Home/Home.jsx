@@ -2,6 +2,7 @@ import React, { useState} from 'react';
 import PropTypes from 'prop-types';
 import { Container, CardContainer } from './Home.styles';
 import { connect } from 'react-redux';
+import checkFavorite from '../../utils/checkFavorite'
 import axios from 'axios';
 import PokemonCard from '../../components/PokemonCard';
 import SearchBar from '../../components/SearchBar';
@@ -30,15 +31,6 @@ const Home = ({ myFavorites }) => {
     }).catch (error => {
       error.response.status === 404 ? console.log('intenta de nuevo') : console.log('Error:', error.message)
     })
-  }
-
-  const checkFavorite = (arr, query) => {
-    const result = arr.find(item => item.id === query);
-    if (result && result.id === query) {
-      return true
-    } else {
-      return false
-    }
   }
 
   return (
