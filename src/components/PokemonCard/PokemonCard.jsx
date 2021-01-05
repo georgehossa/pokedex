@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, InfoWrapper, ImageContainer, Id, Name, Type, LikeIcon } from './PokemonCard.styles';
+import { Container, InfoWrapper, ImageContainer, Id, Name, Type, LikeIcon, LikeIconActive } from './PokemonCard.styles';
 import {setFavorite} from '../../redux/actions';
 import { connect } from 'react-redux';
 
 const PokemonCard = (props) => {
-  const {id, name, type, image} = props;
+  const {id, name, type, image, isFavorite} = props;
   const handleSetFavorite = () => {
     props.setFavorite({
       id, name, type, image,
@@ -20,6 +20,9 @@ const PokemonCard = (props) => {
         <Name>{name}</Name>
         <Id>#{id}</Id>
         <Type>{type}</Type>
+        {
+          isFavorite ? <LikeIconActive/> : <LikeIcon onClick={handleSetFavorite}/>
+        }
         <LikeIcon onClick={handleSetFavorite}/>
       </InfoWrapper>
     </Container>
@@ -32,6 +35,7 @@ PokemonCard.propTypes = {
   name: PropTypes.string,
   type: PropTypes.string,
   image: PropTypes.string,
+  isFavorite: PropTypes.bool,
 };
 
 const mapDispatchToProps = {

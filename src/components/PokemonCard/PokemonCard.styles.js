@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MdFavorite } from 'react-icons/md';
+import { MdFavorite, MdFavoriteBorder } from 'react-icons/md';
 
 export const Container = styled.div`
   position: relative;
@@ -70,7 +70,15 @@ export const Type = styled.span`
   opacity: .6;
 `
 
-export const LikeIcon = styled(MdFavorite)`
+export const LikeIconActive = styled(MdFavorite)`
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  cursor: pointer;
+`
+
+export const LikeIcon = styled(MdFavoriteBorder)`
   position: absolute;
   bottom: 1rem;
   right: 1rem;
