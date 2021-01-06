@@ -1,16 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Container, InfoWrapper, ImageContainer, Id, Name, Type, LikeIcon, LikeIconActive } from './PokemonCard.styles';
-import {setFavorite} from '../../redux/actions';
+import {setFavorite, removeFavorite} from '../../redux/actions';
 import { connect } from 'react-redux';
 
-const PokemonCard = (props) => {
-  const {id, name, type, image, isFavorite} = props;
+const PokemonCard = ({id, name, type, image, isFavorite, setFavorite, removeFavorite}) => {
   const handleSetFavorite = () => {
-    props.setFavorite({
-      id, name, type, image,
+    setFavorite({
+      id, name, type, image, isFavorite
     })
   }
+
+  const handleRemoveFavorite = (itemId) => {
+    removeFavorite(itemId)
+  }
+
   return (
     <Container>
       <ImageContainer>
@@ -21,9 +25,8 @@ const PokemonCard = (props) => {
         <Id>#{id}</Id>
         <Type>{type}</Type>
         {
-          isFavorite ? <LikeIconActive/> : <LikeIcon onClick={handleSetFavorite}/>
+          isFavorite ? <LikeIconActive onClick={() => handleRemoveFavorite(id)}/> : <LikeIcon onClick={handleSetFavorite}/>
         }
-        <LikeIcon onClick={handleSetFavorite}/>
       </InfoWrapper>
     </Container>
   );
@@ -31,6 +34,7 @@ const PokemonCard = (props) => {
 
 PokemonCard.propTypes = {
   setFavorite: PropTypes.func,
+  removeFavorite: PropTypes.func,
   id: PropTypes.number,
   name: PropTypes.string,
   type: PropTypes.string,
@@ -40,6 +44,7 @@ PokemonCard.propTypes = {
 
 const mapDispatchToProps = {
   setFavorite,
+  removeFavorite,
 }
 
 export default connect(null, mapDispatchToProps)(PokemonCard);
