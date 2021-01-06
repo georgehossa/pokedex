@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 
 const Favorites = ({ myFavorites }) => (
   <Container>
-    { myFavorites.map(item => <PokemonCard key={item.id} {...item}/>)}
+    { myFavorites.map(item => <PokemonCard key={item.id} {...item} isFavorite={true}/>)}
   </Container>
 );
 
