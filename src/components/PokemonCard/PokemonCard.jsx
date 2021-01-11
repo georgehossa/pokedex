@@ -1,15 +1,50 @@
 import React from 'react';
-import { Container, InfoWrapper } from './PokemonCard.styles';
+import PropTypes from 'prop-types';
+import { Container, InfoWrapper, ImageContainer, Id, Name, Type, LikeIcon, LikeIconActive } from './PokemonCard.styles';
+import {setFavorite, removeFavorite} from '../../redux/actions';
+import { connect } from 'react-redux';
 
-const PokemonCard = ({id, name, type, image}) => (
-  <Container className="PokemonCardWrapper">
-    <InfoWrapper>
-      <h2>{name}</h2>
-      <span>#{id}</span>
-      <span>{type}</span>
-    </InfoWrapper>
-    <img src={image} alt={name}></img>
-  </Container>
-);
+const PokemonCard = ({id, name, type, image, isFavorite, setFavorite, removeFavorite}) => {
+  const handleSetFavorite = () => {
+    setFavorite({
+      id, name, type, image, isFavorite
+    })
+  }
 
-export default PokemonCard;
+  const handleRemoveFavorite = (itemId) => {
+    removeFavorite(itemId)
+  }
+
+  return (
+    <Container>
+      <ImageContainer>
+        <img src={image} alt={name}></img>
+      </ImageContainer>
+      <InfoWrapper>
+        <Name>{name}</Name>
+        <Id>#{id}</Id>
+        <Type>{type}</Type>
+        {
+          isFavorite ? <LikeIconActive onClick={() => handleRemoveFavorite(id)}/> : <LikeIcon onClick={handleSetFavorite}/>
+        }
+      </InfoWrapper>
+    </Container>
+  );
+}
+
+PokemonCard.propTypes = {
+  setFavorite: PropTypes.func,
+  removeFavorite: PropTypes.func,
+  id: PropTypes.number,
+  name: PropTypes.string,
+  type: PropTypes.string,
+  image: PropTypes.string,
+  isFavorite: PropTypes.bool,
+};
+
+const mapDispatchToProps = {
+  setFavorite,
+  removeFavorite,
+}
+
+export default connect(null, mapDispatchToProps)(PokemonCard);
