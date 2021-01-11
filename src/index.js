@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, compose } from 'redux';
-import reducer from './redux/reducers';
+import reducers from './redux/reducers';
 import App from './routes/App';
+
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const initialState = {
-  'myFavorites': [],
-}
-const store = createStore(reducer, initialState, composeEnhancers());
+
+
+const store = createStore(reducers,{},composeEnhancers());
 
 ReactDOM.render(
   <Provider store={store}>

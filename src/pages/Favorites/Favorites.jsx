@@ -15,10 +15,8 @@ Favorites.propTypes = {
 };
 
 
-const mapStateToProps = (state) => {
-  return {
-    myFavorites: state.myFavorites,
-  };
+const mapStateToProps = (reducers) => {
+  return reducers.favoritesReducer;
 }
 
 export default connect(mapStateToProps, null)(Favorites);
