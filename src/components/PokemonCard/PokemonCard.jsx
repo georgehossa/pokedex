@@ -4,7 +4,7 @@ import { Container, InfoWrapper, ImageContainer, Id, Name, Type, LikeIcon, LikeI
 import {setFavorite, removeFavorite} from '../../redux/actions';
 import { connect } from 'react-redux';
 
-const PokemonCard = ({id, name, type, image, isFavorite, setFavorite, removeFavorite}) => {
+const PokemonCard = ({id, name, type, image, imageB, isFavorite, setFavorite, removeFavorite}) => {
   const handleSetFavorite = () => {
     setFavorite({
       id, name, type, image, isFavorite
@@ -18,7 +18,9 @@ const PokemonCard = ({id, name, type, image, isFavorite, setFavorite, removeFavo
   return (
     <Container>
       <ImageContainer>
-        <img src={image} alt={name}></img>
+        {
+          image ? <img src={image} alt={name}></img> : <img src={imageB} alt={name}></img>
+        }
       </ImageContainer>
       <InfoWrapper>
         <Name>{name}</Name>
@@ -39,6 +41,7 @@ PokemonCard.propTypes = {
   name: PropTypes.string,
   type: PropTypes.string,
   image: PropTypes.string,
+  imageB: PropTypes.string,
   isFavorite: PropTypes.bool,
 };
 
