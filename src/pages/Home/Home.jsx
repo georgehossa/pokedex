@@ -16,7 +16,7 @@ const Home = ({ myFavorites }) => {
 
   const handleChange = (e) => {
       if(e.target.value) {
-        setSuggestedPokemon(allPokemon.filter(pokemon => pokemon.toLowerCase().includes(e.target.value)));
+        setSuggestedPokemon(allPokemon.filter(pokemon => pokemon.toLowerCase().includes(e.target.value.toLowerCase())));
         console.log(suggestedPokemon);
       } else {
         setSuggestedPokemon([]);
