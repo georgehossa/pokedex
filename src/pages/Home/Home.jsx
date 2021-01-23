@@ -41,6 +41,7 @@ const Home = ({ myFavorites }) => {
           name: data.name,
           type: data.types[0].type.name,
           image: data.sprites.other.dream_world.front_default,
+          imageB: data.sprites.front_default,
         });
         console.clear();
     }).catch (error => {
@@ -65,7 +66,7 @@ const Home = ({ myFavorites }) => {
         <SearchBar onChange={handleChange} onClick={handleClick} setValue={setValue} suggestedPokemon={suggestedPokemon} />
         <CardContainer>
           {
-            Object.keys(resultPokemon).length !== 0 ? <PokemonCard id={resultPokemon.id} name={resultPokemon.name} type={resultPokemon.type} image={resultPokemon.image} isFavorite={checkFavorite(myFavorites, resultPokemon.id)}/> : null
+            Object.keys(resultPokemon).length !== 0 ? <PokemonCard id={resultPokemon.id} name={resultPokemon.name} type={resultPokemon.type} image={resultPokemon.image} imageB={resultPokemon.imageB} isFavorite={checkFavorite(myFavorites, resultPokemon.id)}/> : null
           }
         </CardContainer>
       </Container>
