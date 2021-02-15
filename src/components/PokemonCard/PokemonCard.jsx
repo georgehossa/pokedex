@@ -1,19 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, InfoWrapper, ImageContainer, Id, Name, Type, LikeIcon, LikeIconActive } from './PokemonCard.styles';
-import {setFavorite, removeFavorite} from '../../redux/actions';
-import { connect } from 'react-redux';
+import { Container, InfoWrapper, Id, Name, LikeIcon, Type, ImageContainer, LikeIconActive } from './PokemonCard.styles';
+import { setFavorite, removeFavorite } from '../../redux/actions/favoritePokemons.actions';
+import { useDispatch, useSelector } from 'react-redux';
 
-const PokemonCard = ({id, name, type, image, imageB, isFavorite, setFavorite, removeFavorite}) => {
-  const handleSetFavorite = () => {
-    setFavorite({
-      id, name, type, image, isFavorite
-    })
-  }
+const PokemonCard = ({ pokemon }) => {
+  const { id, name} = pokemon;
+  const type = pokemon.types[0].type.name;
+  const image = pokemon.sprites.other["official-artwork"].front_default;
+  const imageB = pokemon.sprites.front_default;
 
-  const handleRemoveFavorite = (itemId) => {
-    removeFavorite(itemId)
-  }
+  const dispatch = useDispatch();
+  const myFavorites = useSelector(state => state.favoritePokemons.myFavorites);
 
   return (
     <Container>
@@ -27,7 +25,8 @@ const PokemonCard = ({id, name, type, image, imageB, isFavorite, setFavorite, re
         <Id>#{id}</Id>
         <Type>{type}</Type>
         {
-          isFavorite ? <LikeIconActive onClick={() => handleRemoveFavorite(id)}/> : <LikeIcon onClick={handleSetFavorite}/>
+          myFavorites.filter(favoriteItem => favoriteItem.id === id).length === 0 ?
+            <LikeIcon onClick={() => dispatch(setFavorite(pokemon))}/> : <LikeIconActive onClick={() => dispatch(removeFavorite(id))}/>
         }
       </InfoWrapper>
     </Container>
@@ -35,19 +34,7 @@ const PokemonCard = ({id, name, type, image, imageB, isFavorite, setFavorite, re
 }
 
 PokemonCard.propTypes = {
-  setFavorite: PropTypes.func,
-  removeFavorite: PropTypes.func,
-  id: PropTypes.number,
-  name: PropTypes.string,
-  type: PropTypes.string,
-  image: PropTypes.string,
-  imageB: PropTypes.string,
-  isFavorite: PropTypes.bool,
+  pokemon: PropTypes.any,
 };
 
-const mapDispatchToProps = {
-  setFavorite,
-  removeFavorite,
-}
-
-export default connect(null, mapDispatchToProps)(PokemonCard);
+export default PokemonCard;
