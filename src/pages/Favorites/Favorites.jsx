@@ -1,22 +1,16 @@
 import React from 'react';
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux';
 import { Container } from './Favorites.styles';
-import PokemonCard from '../../components/PokemonCard'
-import PropTypes from 'prop-types';
+import PokemonCard from '../../components/PokemonCard';
 
-const Favorites = ({ myFavorites }) => (
-  <Container>
-    { myFavorites.map(item => <PokemonCard key={item.id} {...item} isFavorite={true}/>)}
-  </Container>
-);
+const Favorites = () => {
+  const myFavorites = useSelector(state => state.favoritePokemons.myFavorites);
 
-Favorites.propTypes = {
-  myFavorites: PropTypes.array,
+  return (
+    <Container>
+      { myFavorites.map(item => <PokemonCard key={item.id} pokemon={item}/>)}
+    </Container>
+  )
 };
 
-
-const mapStateToProps = (reducers) => {
-  return reducers.favoritesReducer;
-}
-
-export default connect(mapStateToProps, null)(Favorites);
+export default Favorites;

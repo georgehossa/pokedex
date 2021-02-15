@@ -1,53 +1,48 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Container, InfoWrapper, ImageContainer, Id, Name, Type, LikeIcon, LikeIconActive } from './PokemonCard.styles';
-import {setFavorite, removeFavorite} from '../../redux/actions';
-import { connect } from 'react-redux';
+import { Container, InfoWrapper, Id, Name, LikeIcon, Type, ImageContainer, LikeIconActive } from './PokemonCard.styles';
+import { setFavorite, removeFavorite } from '../../redux/actions/favoritePokemons.actions';
+import { useDispatch, useSelector } from 'react-redux';
+import ScaleLoader from 'react-spinners/ScaleLoader';
 
-const PokemonCard = ({id, name, type, image, imageB, isFavorite, setFavorite, removeFavorite}) => {
-  const handleSetFavorite = () => {
-    setFavorite({
-      id, name, type, image, isFavorite
-    })
-  }
+const PokemonCard = ({ pokemon }) => {
+  const { id, name} = pokemon;
+  const type = pokemon.types[0].type.name;
+  const image = pokemon.sprites.other["official-artwork"].front_default;
+  const imageB = pokemon.sprites.front_default;
 
-  const handleRemoveFavorite = (itemId) => {
-    removeFavorite(itemId)
-  }
+  const dispatch = useDispatch();
+  const myFavorites = useSelector(state => state.favoritePokemons.myFavorites);
+  const loading = useSelector(state => state.searchPokemons.loading);
 
   return (
-    <Container>
-      <ImageContainer>
+      <Container>
         {
-          image ? <img src={image} alt={name}></img> : <img src={imageB} alt={name}></img>
+          loading ?
+          <ScaleLoader color="#FFF" loading={loading} size={150} /> :
+            <>
+              <ImageContainer>
+                {
+                  image ? <img src={image} alt={name}></img> : <img src={imageB} alt={name}></img>
+                }
+              </ImageContainer>
+              <InfoWrapper>
+                <Name>{name}</Name>
+                <Id>#{id}</Id>
+                <Type>{type}</Type>
+                {
+                  myFavorites.filter(favoriteItem => favoriteItem.id === id).length === 0 ?
+                    <LikeIcon onClick={() => dispatch(setFavorite(pokemon))}/> : <LikeIconActive onClick={() => dispatch(removeFavorite(id))}/>
+                }
+              </InfoWrapper>
+            </>
         }
-      </ImageContainer>
-      <InfoWrapper>
-        <Name>{name}</Name>
-        <Id>#{id}</Id>
-        <Type>{type}</Type>
-        {
-          isFavorite ? <LikeIconActive onClick={() => handleRemoveFavorite(id)}/> : <LikeIcon onClick={handleSetFavorite}/>
-        }
-      </InfoWrapper>
-    </Container>
+      </Container>
   );
 }
 
 PokemonCard.propTypes = {
-  setFavorite: PropTypes.func,
-  removeFavorite: PropTypes.func,
-  id: PropTypes.number,
-  name: PropTypes.string,
-  type: PropTypes.string,
-  image: PropTypes.string,
-  imageB: PropTypes.string,
-  isFavorite: PropTypes.bool,
+  pokemon: PropTypes.any,
 };
 
-const mapDispatchToProps = {
-  setFavorite,
-  removeFavorite,
-}
-
-export default connect(null, mapDispatchToProps)(PokemonCard);
+export default PokemonCard;

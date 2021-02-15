@@ -1,18 +1,33 @@
 import React from 'react';
 import { Route, useLocation } from 'react-router-dom';
-// import PropTypes from 'prop-types';
 import {
   Container,
   FavLink,
   FavIcon,
-  BackIcon } from './Header.styles';
+  BackIcon,
+  Counter } from './Header.styles';
+import {useSelector} from 'react-redux';
+
+const TotalFav = () => {
+  const totalFavs = useSelector(state => state.favoritePokemons.myFavorites).length;
+  return (
+    <Counter>{totalFavs}</Counter>
+  )
+}
 
 const BackButton = () => (
-  <FavLink to="/" name="back"><BackIcon/>Back</FavLink>
+  <FavLink to="/" name="back">
+    <BackIcon/>Back
+  </FavLink>
 );
-const FavButton = () => (
-  <FavLink name="fav" to="/favorites">Favorites <FavIcon/></FavLink>
-);
+const FavButton = () => {
+  const totalFavs = useSelector(state => state.favoritePokemons.myFavorites).length;
+  return (
+    <FavLink name="fav" to="/favorites">
+      Favorites { totalFavs > 0 && <TotalFav/>} <FavIcon/>
+    </FavLink>
+  )
+};
 
 const Header = () => {
   const location = useLocation();
@@ -23,13 +38,5 @@ const Header = () => {
     </Container>
   );
 }
-
-// Header.propTypes = {
-//   // props: PropTypes.any,
-// };
-
-// Header.defaultProps = {
-//   // bla: 'test',
-// };
 
 export default Header;
