@@ -1,7 +1,9 @@
 import { combineReducers } from 'redux';
-import favoritesReducer from './favorites.reducer'
+import favoritePokemons from './favorites.reducer';
+import searchPokemons from './searchPokemons.reducer';
 
 
 export default combineReducers({
-  favoritesReducer,
+  favoritePokemons,
+  searchPokemons,
 });
