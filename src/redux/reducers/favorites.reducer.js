@@ -1,10 +1,10 @@
 import { SET_FAVORITE, REMOVE_FAVORITE } from '../../types';
 
 const INITIAL_STATE = {
-  'myFavorites': [],
+  myFavorites: [],
 }
 
-export default (state = INITIAL_STATE, action) => {
+const favoritePokemons = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case SET_FAVORITE:
       return {
@@ -19,3 +19,5 @@ export default (state = INITIAL_STATE, action) => {
     default: return state;
   }
 }
+
+export default favoritePokemons;
