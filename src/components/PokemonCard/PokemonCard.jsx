@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Container, InfoWrapper, Id, Name, LikeIcon, Type, ImageContainer, LikeIconActive } from './PokemonCard.styles';
 import { setFavorite, removeFavorite } from '../../redux/actions/favoritePokemons.actions';
 import { useDispatch, useSelector } from 'react-redux';
+import ScaleLoader from 'react-spinners/ScaleLoader';
 
 const PokemonCard = ({ pokemon }) => {
   const { id, name} = pokemon;
@@ -12,24 +13,31 @@ const PokemonCard = ({ pokemon }) => {
 
   const dispatch = useDispatch();
   const myFavorites = useSelector(state => state.favoritePokemons.myFavorites);
+  const loading = useSelector(state => state.searchPokemons.loading);
 
   return (
-    <Container>
-      <ImageContainer>
+      <Container>
         {
-          image ? <img src={image} alt={name}></img> : <img src={imageB} alt={name}></img>
+          loading ?
+          <ScaleLoader color="#FFF" loading={loading} size={150} /> :
+            <>
+              <ImageContainer>
+                {
+                  image ? <img src={image} alt={name}></img> : <img src={imageB} alt={name}></img>
+                }
+              </ImageContainer>
+              <InfoWrapper>
+                <Name>{name}</Name>
+                <Id>#{id}</Id>
+                <Type>{type}</Type>
+                {
+                  myFavorites.filter(favoriteItem => favoriteItem.id === id).length === 0 ?
+                    <LikeIcon onClick={() => dispatch(setFavorite(pokemon))}/> : <LikeIconActive onClick={() => dispatch(removeFavorite(id))}/>
+                }
+              </InfoWrapper>
+            </>
         }
-      </ImageContainer>
-      <InfoWrapper>
-        <Name>{name}</Name>
-        <Id>#{id}</Id>
-        <Type>{type}</Type>
-        {
-          myFavorites.filter(favoriteItem => favoriteItem.id === id).length === 0 ?
-            <LikeIcon onClick={() => dispatch(setFavorite(pokemon))}/> : <LikeIconActive onClick={() => dispatch(removeFavorite(id))}/>
-        }
-      </InfoWrapper>
-    </Container>
+      </Container>
   );
 }
 
