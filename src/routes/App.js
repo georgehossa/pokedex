@@ -6,6 +6,7 @@ import { GlobalStyles } from '../assets/styles/globalStyles';
 import Home from '../pages/Home';
 import Layout from '../components/Layout';
 import Favorites from '../pages/Favorites';
+import Error404 from '../pages/Error404';
 
 const App = () => (
   <ThemeProvider theme={theme}>
@@ -15,6 +16,7 @@ const App = () => (
         <Switch>
           <Route exact path="/" component={Home}/>
           <Route exact path="/favorites" component={Favorites}/>
+          <Route component={Error404}/>
         </Switch>
       </Layout>
     </BrowserRouter>
